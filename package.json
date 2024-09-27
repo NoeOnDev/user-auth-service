@@ -31,7 +31,10 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/joi": "^17.2.2",
+    "@types/morgan": "^1.9.9",
     "@types/pg": "^8.11.10",
     "@types/uuid": "^10.0.0"
   }

@@ -20,7 +20,20 @@ if (error) {
 
 const { PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT } = envVars;
 
-export const env = {
+interface Env {
+  port: {
+    PORT: number;
+  };
+  db: {
+    DB_USER: string;
+    DB_PASSWORD: string;
+    DB_NAME: string;
+    DB_HOST: string;
+    DB_PORT: number;
+  };
+}
+
+export const env: Env = {
   port: {
     PORT: PORT,
   },
