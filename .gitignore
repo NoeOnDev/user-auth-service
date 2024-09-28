@@ -9,3 +9,10 @@ logs
 
 # Environment variables
 .env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code
+.vscode

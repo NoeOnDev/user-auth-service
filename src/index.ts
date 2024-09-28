@@ -23,6 +23,10 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+app.use((_req, res, _next) => {
+  res.status(404).json({ error: "Not Found" });
+});
+
 app.get("/", (_req, res) => {
   res.send("Welcome to the Microservice users API 🚀");
 });
