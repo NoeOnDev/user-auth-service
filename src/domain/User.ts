@@ -1,9 +1,11 @@
+import { UserCreatedAt } from "./value-objects/UserCreatedAt";
 import { UserEmail } from "./value-objects/UserEmail";
 import { UserId } from "./value-objects/UserId";
 import { UserLocation } from "./value-objects/UserLocation";
 import { UserName } from "./value-objects/UserName";
 import { UserPassword } from "./value-objects/UserPassword";
 import { UserPhone } from "./value-objects/UserPhone";
+import { UserUpdatedAt } from "./value-objects/UserUpdatedAt";
 import { UserUuid } from "./value-objects/UserUuid";
 
 export class User {
@@ -14,8 +16,8 @@ export class User {
   password: UserPassword;
   location: UserLocation;
   phone: UserPhone;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: UserCreatedAt;
+  updatedAt: UserUpdatedAt;
 
   constructor(
     id: UserId,
@@ -25,8 +27,8 @@ export class User {
     password: UserPassword,
     location: UserLocation,
     phone: UserPhone,
-    createdAt: Date,
-    updatedAt: Date
+    createdAt: UserCreatedAt,
+    updatedAt: UserUpdatedAt
   ) {
     this.id = id;
     this.uuid = uuid;
