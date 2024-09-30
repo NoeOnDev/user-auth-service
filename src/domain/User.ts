@@ -1,22 +1,30 @@
+import { UserEmail } from "./value-objects/UserEmail";
+import { UserId } from "./value-objects/UserId";
+import { UserLocation } from "./value-objects/UserLocation";
+import { UserName } from "./value-objects/UserName";
+import { UserPassword } from "./value-objects/UserPassword";
+import { UserPhone } from "./value-objects/UserPhone";
+import { UserUuid } from "./value-objects/UserUuid";
+
 export class User {
-  id: string;
-  uuid: string;
-  name: string;
-  email: string;
-  password: string;
-  location: string;
-  phone: string;
+  id: UserId;
+  uuid: UserUuid;
+  name: UserName;
+  email: UserEmail;
+  password: UserPassword;
+  location: UserLocation;
+  phone: UserPhone;
   createdAt: Date;
   updatedAt: Date;
 
   constructor(
-    id: string,
-    uuid: string,
-    name: string,
-    email: string,
-    password: string,
-    location: string,
-    phone: string,
+    id: UserId,
+    uuid: UserUuid,
+    name: UserName,
+    email: UserEmail,
+    password: UserPassword,
+    location: UserLocation,
+    phone: UserPhone,
     createdAt: Date,
     updatedAt: Date
   ) {
