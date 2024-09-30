@@ -1,15 +1,33 @@
-import { v4 as uuidv4 } from "uuid";
-
 export class User {
+  id: string;
+  uuid: string;
+  name: string;
+  email: string;
+  password: string;
+  location: string;
+  phone: string;
+  createdAt: Date;
+  updatedAt: Date;
+
   constructor(
-    public id: string,
-    public uuid: string = uuidv4(),
-    public name: string,
-    public email: string,
-    public phone: string,
-    public age: number,
-    public password: string,
-    public location: string,
-    public isVerified: boolean = false
-  ) {}
+    id: string,
+    uuid: string,
+    name: string,
+    email: string,
+    password: string,
+    location: string,
+    phone: string,
+    createdAt: Date,
+    updatedAt: Date
+  ) {
+    this.id = id;
+    this.uuid = uuid;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.location = location;
+    this.phone = phone;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 }
