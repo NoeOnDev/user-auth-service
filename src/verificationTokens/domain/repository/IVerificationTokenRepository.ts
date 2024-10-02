@@ -1,4 +1,4 @@
-import { VerificationToken } from "../entities/VerificationToken";
+import { VerificationToken } from "../entity/VerificationToken";
 
 export interface IVerificationTokenRepository {
   create(verificationToken: VerificationToken): Promise<VerificationToken>;
