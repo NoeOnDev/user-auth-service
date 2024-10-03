@@ -53,3 +53,22 @@ export const deleteToken = async (req: Request, res: Response) => {
     }
   }
 };
+
+export const verifyEmail = async (req: Request, res: Response) => {
+  const { token } = req.params;
+
+  try {
+    const isVerified = await emailVerificationTokenService.verifyEmail(token);
+    if (isVerified) {
+      res.status(200).json({ message: "Email verified successfully" });
+    } else {
+      res.status(400).json({ error: "Invalid or expired token" });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unknown error occurred" });
+    }
+  }
+};
