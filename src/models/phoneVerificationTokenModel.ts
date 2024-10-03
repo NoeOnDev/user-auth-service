@@ -31,7 +31,7 @@ export class PhoneVerificationToken extends Model<PhoneVerificationToken> {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  userId!: number;
+  user_id!: number;
 
   @BelongsTo(() => User)
   user!: User;
@@ -46,5 +46,5 @@ export class PhoneVerificationToken extends Model<PhoneVerificationToken> {
     type: DataType.DATE,
     allowNull: false,
   })
-  expiresAt!: Date;
+  expires_at!: Date;
 }

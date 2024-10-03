@@ -31,7 +31,7 @@ export class EmailVerificationToken extends Model<EmailVerificationToken> {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  userId!: number;
+  user_id!: number;
 
   @BelongsTo(() => User)
   user!: User;
@@ -46,5 +46,5 @@ export class EmailVerificationToken extends Model<EmailVerificationToken> {
     type: DataType.DATE,
     allowNull: false,
   })
-  expiresAt!: Date;
+  expires_at!: Date;
 }
