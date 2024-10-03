@@ -2,7 +2,7 @@ import { transporter } from "../_config/transporter.config";
 import { env } from "../_config/env.config";
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const verificationUrl = `http://localhost:9020/api/v1/email-verification-tokens?token=${token}`;
+  const verificationUrl = `http://localhost:9020/api/v1/email-verification-tokens/${token}`;
 
   const mailOptions = {
     from: env.email.EMAIL_USER,
