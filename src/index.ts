@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import path from "path";
 import { env } from "./_config/env.config";
 import { connectWithRetry } from "./_utils/ormConnection";
+import userRoutes from "./routes/userRoutes";
 
 const app = express();
 const port = env.port.PORT;
@@ -22,6 +23,8 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+app.use("/api/v1/users", userRoutes);
 
 app.use((_req, res, _next) => {
   res.status(404).json({ error: "Not Found" });
