@@ -2,9 +2,9 @@ import { UserRepository } from "../repositories/userRepository";
 import { User } from "../models/userModel";
 import { CreationAttributes } from "sequelize";
 import { EmailVerificationTokenRepository } from "../repositories/emailVerificationTokenRepository";
-import { v4 as uuidv4 } from "uuid";
 import { sendVerificationEmail } from "./emailService";
 import { EmailVerificationToken } from "../models/emailVerificationTokenModel";
+import { generateVerificationToken } from "../_utils/tokenUtil";
 
 const userRepository = new UserRepository();
 const emailVerificationTokenRepository = new EmailVerificationTokenRepository();
@@ -13,9 +13,7 @@ export class UserService {
   async createUser(data: CreationAttributes<User>): Promise<User> {
     const user = await userRepository.createUser(data);
 
-    const token = uuidv4();
-    const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 1);
+    const { token, expiresAt } = generateVerificationToken();
 
     const tokenData = {
       user_id: user.id,
