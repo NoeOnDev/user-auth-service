@@ -63,13 +63,13 @@ export class User extends Model<User> {
   @Column({
     type: DataType.BOOLEAN,
   })
-  is_email_verified!: boolean;
+  isEmailVerified!: boolean;
 
   @Default(false)
   @Column({
     type: DataType.BOOLEAN,
   })
-  is_phone_verified!: boolean;
+  isPhoneVerified!: boolean;
 
   @BeforeUpdate
   static updateTimestamp(instance: User) {
