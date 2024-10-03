@@ -6,9 +6,11 @@ import {
   PrimaryKey,
   Default,
   Index,
+  BeforeCreate,
   BeforeUpdate,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
+import argon2 from "argon2";
 
 @Table({
   tableName: "users",
@@ -70,6 +72,14 @@ export class User extends Model<User> {
     type: DataType.BOOLEAN,
   })
   isPhoneVerified!: boolean;
+
+  @BeforeCreate
+  @BeforeUpdate
+  static async hashPassword(instance: User) {
+    if (instance.changed("password")) {
+      instance.password = await argon2.hash(instance.password);
+    }
+  }
 
   @BeforeUpdate
   static updateTimestamp(instance: User) {
