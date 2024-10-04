@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import { env } from "./env.config";
 import { User } from "../models/userModel";
 import { EmailVerificationToken } from "../models/emailVerificationTokenModel";
-import { PhoneVerificationToken } from "../models/phoneVerificationTokenModel";
+import { PhoneVerificationToken } from "../models/phoneVerificationCodeModel";
 
 export const sequelize = new Sequelize({
   database: env.db.DB_NAME,

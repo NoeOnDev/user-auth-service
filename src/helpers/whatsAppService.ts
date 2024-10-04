@@ -2,12 +2,10 @@ import { twilioClient } from "../_config/twilio.config";
 import { env } from "../_config/env.config";
 
 export const sendWhatsAppVerification = async (phone: string, code: string) => {
-  const { TWILIO_PHONE_NUMBER } = env.twilio;
-
   try {
     const message = await twilioClient.messages.create({
       body: `Your verification code is: ${code}`,
-      from: `whatsapp:${TWILIO_PHONE_NUMBER}`,
+      from: `whatsapp:${env.twilio.TWILIO_PHONE_NUMBER}`,
       to: `whatsapp:${phone}`,
     });
 

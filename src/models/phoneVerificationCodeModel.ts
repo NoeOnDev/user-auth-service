@@ -11,13 +11,13 @@ import {
 import { User } from "./userModel";
 
 @Table({
-  tableName: "phone_verification_tokens",
+  tableName: "phone_verification_codes",
   timestamps: true,
   underscored: true,
   createdAt: "created_at",
   updatedAt: false,
 })
-export class PhoneVerificationToken extends Model<PhoneVerificationToken> {
+export class PhoneVerificationCode extends Model<PhoneVerificationCode> {
   @PrimaryKey
   @Column({
     type: DataType.INTEGER,

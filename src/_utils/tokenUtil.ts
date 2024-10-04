@@ -7,3 +7,11 @@ export const generateVerificationToken = () => {
 
   return { token, expiresAt };
 };
+
+export const generateVerificationCode = () => {
+  const code = Math.floor(100000 + Math.random() * 900000);
+  const expiresAt = new Date();
+  expiresAt.setMinutes(expiresAt.getMinutes() + 10);
+
+  return { code, expiresAt };
+};
