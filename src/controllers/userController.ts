@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/userService";
+import { filterUserFields } from "../_utils/filterUserFields";
 
 const userService = new UserService();
 
 export const createUser = async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser(req.body);
-    res.status(201).json(user);
+    const filteredUser = filterUserFields(user);
+    res.status(201).json(filteredUser);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });
