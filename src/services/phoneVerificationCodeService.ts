@@ -4,6 +4,7 @@ import { PhoneVerificationCode } from "../models/phoneVerificationCodeModel";
 import { generateVerificationCode } from "../_utils/tokenUtil";
 import { sendWhatsAppVerification } from "../helpers/whatsAppService";
 import { CreationAttributes } from "sequelize";
+import { AppError } from "../_utils/appError";
 
 const phoneVerificationCodeRepository = new PhoneVerificationCodeRepository();
 const userRepository = new UserRepository();
@@ -15,11 +16,11 @@ export class PhoneVerificationTokenService {
   ): Promise<PhoneVerificationCode> {
     const user = await userRepository.getUserById(user_id);
     if (!user) {
-      throw new Error("User not found");
+      throw new AppError("User not found", 404);
     }
 
     if (!user.isEmailVerified) {
-      throw new Error("User email is not verified");
+      throw new AppError("User email is not verified", 403);
     }
 
     const { code, expiresAt } = generateVerificationCode();
@@ -43,12 +44,12 @@ export class PhoneVerificationTokenService {
     const token = await phoneVerificationCodeRepository.getCode(code);
 
     if (!token) {
-      return false;
+      throw new AppError("Invalid or expired code", 400);
     }
 
     const user = await userRepository.getUserById(token.user_id);
     if (!user) {
-      return false;
+      throw new AppError("User not found", 404);
     }
 
     user.isPhoneVerified = true;

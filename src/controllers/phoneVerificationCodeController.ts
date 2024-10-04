@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PhoneVerificationTokenService } from "../services/phoneVerificationCodeService";
+import { AppError } from "../_utils/appError";
 
 const phoneVerificationTokenService = new PhoneVerificationTokenService();
 
@@ -13,8 +14,8 @@ export const createCode = async (req: Request, res: Response) => {
     );
     res.status(201).json(token);
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+    if (error instanceof AppError) {
+      res.status(error.statusCode).json({ error: error.message });
     } else {
       res.status(500).json({ error: "An unknown error occurred" });
     }
@@ -32,8 +33,8 @@ export const verifyPhone = async (req: Request, res: Response) => {
       res.status(400).json({ error: "Invalid or expired code" });
     }
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+    if (error instanceof AppError) {
+      res.status(error.statusCode).json({ error: error.message });
     } else {
       res.status(500).json({ error: "An unknown error occurred" });
     }
