@@ -37,9 +37,16 @@ export class PhoneVerificationToken extends Model<PhoneVerificationToken> {
   user!: User;
 
   @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  phone!: string;
+
+  @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
+  @Index("idx_phone_verification_tokens_code")
   code!: number;
 
   @Column({
@@ -47,4 +54,11 @@ export class PhoneVerificationToken extends Model<PhoneVerificationToken> {
     allowNull: false,
   })
   expires_at!: Date;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  })
+  failed_attempts!: number;
 }
