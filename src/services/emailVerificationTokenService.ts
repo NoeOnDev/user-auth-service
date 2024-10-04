@@ -2,6 +2,7 @@ import { EmailVerificationTokenRepository } from "../repositories/emailVerificat
 import { EmailVerificationToken } from "../models/emailVerificationTokenModel";
 import { UserRepository } from "../repositories/userRepository";
 import { CreationAttributes } from "sequelize";
+import { AppError } from "../_utils/appError";
 
 const emailVerificationTokenRepository = new EmailVerificationTokenRepository();
 const userRepository = new UserRepository();
@@ -24,12 +25,12 @@ export class EmailVerificationTokenService {
   async verifyEmail(token: string): Promise<boolean> {
     const emailToken = await this.getToken(token);
     if (!emailToken) {
-      return false;
+      throw new AppError("Invalid or expired token", 400);
     }
 
     const user = await userRepository.getUserById(emailToken.user_id);
     if (!user) {
-      return false;
+      throw new AppError("User not found", 404);
     }
 
     user.isEmailVerified = true;
