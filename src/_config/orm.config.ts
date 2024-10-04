@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import { env } from "./env.config";
 import { User } from "../models/userModel";
 import { EmailVerificationToken } from "../models/emailVerificationTokenModel";
-import { PhoneVerificationToken } from "../models/phoneVerificationCodeModel";
+import { PhoneVerificationCode } from "../models/phoneVerificationCodeModel";
 
 export const sequelize = new Sequelize({
   database: env.db.DB_NAME,
@@ -11,6 +11,6 @@ export const sequelize = new Sequelize({
   password: env.db.DB_PASSWORD,
   host: env.db.DB_HOST,
   port: env.db.DB_PORT,
-  models: [User, EmailVerificationToken, PhoneVerificationToken],
+  models: [User, EmailVerificationToken, PhoneVerificationCode],
   logging: false,
 });

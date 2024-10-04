@@ -9,7 +9,7 @@ const phoneVerificationTokenRepository = new PhoneVerificationCodeRepository();
 const userRepository = new UserRepository();
 
 export class PhoneVerificationTokenService {
-  async createToken(
+  async createCode(
     phone: string,
     user_id: number
   ): Promise<PhoneVerificationCode> {
