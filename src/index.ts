@@ -8,6 +8,7 @@ import { connectWithRetry } from "./_utils/ormConnection";
 import userRoutes from "./routes/userRoutes";
 import emailVerificationTokenRoutes from "./routes/emailVerificationTokenRoutes";
 import phoneVerificationCodeRoutes from "./routes/phoneVerificationCodeRoutes";
+import authRoutes from "./routes/authRoutes";
 
 const app = express();
 const port = env.port.PORT;
@@ -29,6 +30,7 @@ app.use(limiter);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/email-verification-tokens", emailVerificationTokenRoutes);
 app.use("/api/v1/phone-verification-codes", phoneVerificationCodeRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.use((_req, res, _next) => {
   res.status(404).json({ error: "Not Found" });
