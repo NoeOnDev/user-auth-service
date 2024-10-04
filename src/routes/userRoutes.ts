@@ -7,6 +7,7 @@ import {
   getUserById,
   getUserByUuid,
   updateUser,
+  updateUserPhone,
 } from "../controllers/userController";
 
 const router = Router();
@@ -17,6 +18,7 @@ router.get("/:id", getUserById);
 router.get("/uuid/:uuid", getUserByUuid);
 router.get("/email/:email", getUserByEmail);
 router.put("/:id", updateUser);
+router.patch("/:uuid/phone", updateUserPhone);
 router.delete("/:id", deleteUser);
 
 export default router;

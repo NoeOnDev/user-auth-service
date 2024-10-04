@@ -14,6 +14,9 @@ const envSchema = Joi.object({
   EMAIL_PORT: Joi.number().required(),
   EMAIL_USER: Joi.string().required(),
   EMAIL_PASSWORD: Joi.string().required(),
+  TWILIO_ACCOUNT_SID: Joi.string().required(),
+  TWILIO_AUTH_TOKEN: Joi.string().required(),
+  TWILIO_PHONE_NUMBER: Joi.string().required(),
 }).unknown();
 
 const { error, value: envVars } = envSchema.validate(process.env);
@@ -33,6 +36,9 @@ const {
   EMAIL_PORT,
   EMAIL_USER,
   EMAIL_PASSWORD,
+  TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN,
+  TWILIO_PHONE_NUMBER,
 } = envVars;
 
 interface Env {
@@ -52,6 +58,11 @@ interface Env {
     EMAIL_USER: string;
     EMAIL_PASSWORD: string;
   };
+  twilio: {
+    TWILIO_ACCOUNT_SID: string;
+    TWILIO_AUTH_TOKEN: string;
+    TWILIO_PHONE_NUMBER: string;
+  };
 }
 
 export const env: Env = {
@@ -70,5 +81,10 @@ export const env: Env = {
     EMAIL_PORT: EMAIL_PORT,
     EMAIL_USER: EMAIL_USER,
     EMAIL_PASSWORD: EMAIL_PASSWORD,
+  },
+  twilio: {
+    TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN,
+    TWILIO_PHONE_NUMBER: TWILIO_PHONE_NUMBER,
   },
 };
