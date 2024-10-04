@@ -37,10 +37,10 @@ export class PhoneVerificationToken extends Model<PhoneVerificationToken> {
   user!: User;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  token!: string;
+  code!: number;
 
   @Column({
     type: DataType.DATE,
