@@ -5,7 +5,7 @@ import { generateVerificationCode } from "../_utils/tokenUtil";
 import { sendWhatsAppVerification } from "../helpers/whatsAppService";
 import { CreationAttributes } from "sequelize";
 
-const phoneVerificationTokenRepository = new PhoneVerificationCodeRepository();
+const phoneVerificationCodeRepository = new PhoneVerificationCodeRepository();
 const userRepository = new UserRepository();
 
 export class PhoneVerificationTokenService {
@@ -13,6 +13,15 @@ export class PhoneVerificationTokenService {
     phone: string,
     user_id: number
   ): Promise<PhoneVerificationCode> {
+    const user = await userRepository.getUserById(user_id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (!user.isEmailVerified) {
+      throw new Error("User email is not verified");
+    }
+
     const { code, expiresAt } = generateVerificationCode();
     const tokenData = {
       phone,
@@ -21,7 +30,7 @@ export class PhoneVerificationTokenService {
       user_id,
     };
 
-    const token = await phoneVerificationTokenRepository.createCode(
+    const token = await phoneVerificationCodeRepository.createCode(
       tokenData as CreationAttributes<PhoneVerificationCode>
     );
 
@@ -31,7 +40,7 @@ export class PhoneVerificationTokenService {
   }
 
   async verifyPhone(code: number): Promise<boolean> {
-    const token = await phoneVerificationTokenRepository.getCode(code);
+    const token = await phoneVerificationCodeRepository.getCode(code);
 
     if (!token) {
       return false;
@@ -46,12 +55,8 @@ export class PhoneVerificationTokenService {
     user.phone = token.phone;
     await user.save();
 
-    await phoneVerificationTokenRepository.deleteCodeByPhone(token.phone);
+    await phoneVerificationCodeRepository.deleteCodeByPhone(token.phone);
 
     return true;
-  }
-
-  async incrementFailedAttempts(phone: string): Promise<void> {
-    await phoneVerificationTokenRepository.incrementFailedAttempts(phone);
   }
 }
