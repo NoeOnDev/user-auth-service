@@ -25,13 +25,6 @@ export class UserRepository {
     return await User.update(data, { where: { uuid }, returning: true });
   }
 
-  async updateUserPhone(
-    uuid: string,
-    phone: string
-  ): Promise<[number, User[]]> {
-    return await User.update({ phone }, { where: { uuid }, returning: true });
-  }
-
   async deleteUser(id: number): Promise<number> {
     return await User.destroy({ where: { id } });
   }

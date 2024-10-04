@@ -49,13 +49,6 @@ export class UserService {
     return await userRepository.updateUser(uuid, data);
   }
 
-  async updateUserPhone(
-    uuid: string,
-    phone: string
-  ): Promise<[number, User[]]> {
-    return await userRepository.updateUserPhone(uuid, phone);
-  }
-
   async deleteUser(id: number): Promise<number> {
     return await userRepository.deleteUser(id);
   }
