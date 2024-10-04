@@ -18,8 +18,18 @@ export class UserRepository {
     return await User.findOne({ where: { email } });
   }
 
-  async updateUser(id: number, data: Partial<User>): Promise<[number, User[]]> {
-    return await User.update(data, { where: { id }, returning: true });
+  async updateUser(
+    uuid: string,
+    data: Partial<User>
+  ): Promise<[number, User[]]> {
+    return await User.update(data, { where: { uuid }, returning: true });
+  }
+
+  async updateUserPhone(
+    uuid: string,
+    phone: string
+  ): Promise<[number, User[]]> {
+    return await User.update({ phone }, { where: { uuid }, returning: true });
   }
 
   async deleteUser(id: number): Promise<number> {

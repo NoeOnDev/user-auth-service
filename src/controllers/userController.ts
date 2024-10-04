@@ -72,8 +72,28 @@ export const getUserByEmail = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const [updatedRows, [updatedUser]] = await userService.updateUser(
-      parseInt(req.params.id),
+      req.params.uuid,
       req.body
+    );
+    if (updatedRows > 0) {
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unknown error occurred" });
+    }
+  }
+};
+
+export const updateUserPhone = async (req: Request, res: Response) => {
+  try {
+    const [updatedRows, [updatedUser]] = await userService.updateUserPhone(
+      req.params.uuid,
+      req.body.phone
     );
     if (updatedRows > 0) {
       res.json(updatedUser);

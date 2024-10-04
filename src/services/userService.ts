@@ -2,7 +2,7 @@ import { UserRepository } from "../repositories/userRepository";
 import { User } from "../models/userModel";
 import { CreationAttributes } from "sequelize";
 import { EmailVerificationTokenRepository } from "../repositories/emailVerificationTokenRepository";
-import { sendVerificationEmail } from "./emailService";
+import { sendVerificationEmail } from "../helpers/emailService";
 import { EmailVerificationToken } from "../models/emailVerificationTokenModel";
 import { generateVerificationToken } from "../_utils/tokenUtil";
 
@@ -42,8 +42,18 @@ export class UserService {
     return await userRepository.getUserByEmail(email);
   }
 
-  async updateUser(id: number, data: Partial<User>): Promise<[number, User[]]> {
-    return await userRepository.updateUser(id, data);
+  async updateUser(
+    uuid: string,
+    data: Partial<User>
+  ): Promise<[number, User[]]> {
+    return await userRepository.updateUser(uuid, data);
+  }
+
+  async updateUserPhone(
+    uuid: string,
+    phone: string
+  ): Promise<[number, User[]]> {
+    return await userRepository.updateUserPhone(uuid, phone);
   }
 
   async deleteUser(id: number): Promise<number> {
