@@ -3,11 +3,13 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { env } from "../_config/env.config";
 import { AppError } from "../_utils/appError";
+import { PhoneVerificationTokenService } from "./phoneVerificationCodeService";
 
 const userRepository = new UserRepository();
+const phoneVerificationTokenService = new PhoneVerificationTokenService();
 
 export class AuthService {
-  async login(email: string, password: string): Promise<string> {
+  async login(email: string, password: string): Promise<void> {
     const user = await userRepository.getUserByEmail(email);
 
     if (!user) {
@@ -26,6 +28,24 @@ export class AuthService {
 
     if (!user.isPhoneVerified) {
       throw new AppError("Phone is not verified", 403);
+    }
+
+    await phoneVerificationTokenService.createCode(
+      user.phone as string,
+      user.id
+    );
+  }
+
+  async verify2FA(userId: number, code: number): Promise<string> {
+    const isValid = await phoneVerificationTokenService.verifyPhone(code);
+
+    if (!isValid) {
+      throw new AppError("Invalid or expired 2FA code", 400);
+    }
+
+    const user = await userRepository.getUserById(userId);
+    if (!user) {
+      throw new AppError("User not found", 404);
     }
 
     const token = jwt.sign(
