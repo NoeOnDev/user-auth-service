@@ -9,7 +9,10 @@ const userRepository = new UserRepository();
 const phoneVerificationTokenService = new PhoneVerificationTokenService();
 
 export class AuthService {
-  async login(email: string, password: string): Promise<void> {
+  async login(
+    email: string,
+    password: string
+  ): Promise<{ userId: number; phone: string }> {
     const user = await userRepository.getUserByEmail(email);
 
     if (!user) {
@@ -34,6 +37,8 @@ export class AuthService {
       user.phone as string,
       user.id
     );
+
+    return { userId: user.id, phone: user.phone as string };
   }
 
   async verify2FA(userId: number, code: number): Promise<string> {

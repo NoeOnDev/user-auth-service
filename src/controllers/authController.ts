@@ -8,8 +8,10 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    await authService.login(email, password);
-    res.status(200).json({ message: "2FA code sent to your phone" });
+    const { userId, phone } = await authService.login(email, password);
+    res
+      .status(200)
+      .json({ message: "2FA code sent to your phone", userId, phone });
   } catch (error) {
     if (error instanceof AppError) {
       res.status(error.statusCode).json({ error: error.message });
