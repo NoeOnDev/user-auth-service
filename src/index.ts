@@ -30,7 +30,7 @@ app.use(limiter);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/email-verification-tokens", emailVerificationTokenRoutes);
 app.use("/api/v1/phone-verification-codes", phoneVerificationCodeRoutes);
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/auth", authRoutes); //Routes for login and signup
 
 app.use((_req, res, _next) => {
   res.status(404).json({ error: "Not Found" });
